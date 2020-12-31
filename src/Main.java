@@ -24,18 +24,20 @@ import javax.swing.table.DefaultTableModel;
 
 public class Main extends JFrame{
 
-	JPanel northPanel, centerPanel;
+	JPanel northPanel, centerPanel, southPanel;
 	public void initiallize() {
 		northPanel = new JPanel();
 		centerPanel = new JPanel();
-		
+		southPanel = new JPanel();
 		add(northPanel, BorderLayout.NORTH);
 		add(centerPanel, BorderLayout.CENTER);
+		add(southPanel, BorderLayout.SOUTH);
 //		northPanel.setBackground(Color.red);
 //		centerPanel.setBackground(Color.blue);
 		
 		north();
 		center();
+		south();
 	}
 	
 	JLabel lblTitle;
@@ -90,6 +92,31 @@ public class Main extends JFrame{
 			}
 		});
 		bottom();
+	}
+	
+	JTextField txtSearch;
+	JButton btnSearch;
+	public void south() {
+		txtSearch = new JTextField();
+		btnSearch = new JButton("Search");
+		southPanel.setLayout(new GridLayout(0, 2));
+		southPanel.add(txtSearch);
+		southPanel.add(btnSearch);
+		
+		btnSearch.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					String query = "SELECT * FROM books WHERE BookName LIKE '%"+txtName.getText()+"%' ";
+					Statement st = con.createStatement();
+					ResultSet rs = st.executeQuery(query);
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});
 	}
 	
 	public void viewTable() {
